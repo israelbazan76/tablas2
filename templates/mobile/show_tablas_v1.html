@@ -56,25 +56,9 @@
     <div class="row">
 
         <div class="col-lg-1 col-md-1 col-sm-1 col-xm-1"></div>
-        <div class="col-lg-10  col-md-10 col-sm-10 col-xm-10 centrados">
-            {% if start > 10 %}
-            <a href="{{ url_for('show_tablas',num=num,start=start-10) }}"
-                class="fa fa-arrow-circle-up fa-2x" data-toggle="tooltip" data-placement="bottom" title="retroceder">
-            </a>
-            {% else %}
-            <a href="{{ url_for('show_tablas',num=num,start=1) }}"
-                class="fa fa-arrow-circle-up fa-2x"  data-toggle="tooltip" data-placement="bottom" title="retroceder">
-            </a>
-            
-            {% endif %}
-            
-            
-        </div>
-        <div class="col-lg-1 col-md-1 col-sm-1 col-xm-1"></div>
-
-    </div>
-    <div class="row">
-        <div class="col-lg-1 col-md-1 col-sm-1  col-xm-1 centrados">
+        <div class="col-lg-10  col-md-10 col-sm-10 col-xm-10">
+            <div style="display: flex; justify-content: space-around">
+                <div>
             {% if num >= 1 %}
                 {% if num > cols %}
                   <a href="{{ url_for('show_tablas',num=num - cols,start=start) }}"
@@ -88,6 +72,35 @@
                 {% endif %}
             {% endif %}
         </div>
+        <div>
+            {% if start > 10 %}
+            <a href="{{ url_for('show_tablas',num=num,start=start-10) }}"
+                class="fa fa-arrow-circle-up fa-2x" data-toggle="tooltip" data-placement="bottom" title="retroceder">
+            </a>
+            {% else %}
+            <a href="{{ url_for('show_tablas',num=num,start=1) }}"
+                class="fa fa-arrow-circle-up fa-2x"  data-toggle="tooltip" data-placement="bottom" title="retroceder">
+            </a>
+            {% endif %}
+
+            <a href="{{ url_for('show_tablas',num=num,start=start+10) }}"
+            class="fa fa-arrow-circle-down fa-2x" data-toggle="tooltip" data-placement="top" title="avanzar">
+            </a>
+        </div>
+        <div>
+            <a href="{{ url_for('show_tablas',num=num+cols,start=start) }}"
+            class="fa fa-arrow-circle-right fa-2x" data-toggle="tooltip" data-placement="left" title="siguiente">
+            </a>
+        </div>
+        </div>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xm-1"></div>
+
+    </div>
+    <div class="row">
+        <div class="col-lg-1 col-md-1 col-sm-1  col-xm-1 centrados">
+            
+        </div>
         {% for n in range(0,cols) -%}
         <div class="col-lg-2 col-md-2 col-sm-2  col-xm-2 centrados tabla">
             <ul class="list-group">
@@ -98,9 +111,7 @@
         </div>
         {% endfor -%}
         <div class="col-lg-1  col-md-1 col-sm-1 col-xm-1 centrados">
-            <a href="{{ url_for('show_tablas',num=num+cols,start=start) }}"
-            class="fa fa-arrow-circle-right fa-2x" data-toggle="tooltip" data-placement="left" title="siguiente">
-            </a>
+            
         </div>
 
     </div>
@@ -108,9 +119,7 @@
 
         <div class="col-lg-1 col-md-1 col-sm-1  col-xm-1"></div>
         <div class="col-lg-10 col-md-10  col-sm-10 col-xm-10 centrados">
-            <a href="{{ url_for('show_tablas',num=num,start=start+10) }}"
-            class="fa fa-arrow-circle-down fa-2x" data-toggle="tooltip" data-placement="top" title="avanzar">
-            </a>
+            
         </div>
         <div class="col-lg-1 col-md-1 col-sm-1 col-xm-1"></div>
 
