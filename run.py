@@ -15,7 +15,6 @@ from models import users, get_user, User
 
 # from flask_bootstrap import Bootstrap
 from user_agents import parse
-from flask import request
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '7110c8ae51a4b5af97be6534caef90e4bb9bdcb3380af008f90b23a5d1616bf319bc298105da20fe'
@@ -31,12 +30,7 @@ posts = []
 @app.route("/mock/<string:version>/")
 def mock(version):
     return render_template("show_tablas_mock_" + version + ".html", posts=posts)
-@app.route("/useragent/")
-def func_user_agent():
-    ua_string = request.user_agent.string
-    user_agent = parse(ua_string)
-    strIsMobile = "is mobile: " + str(user_agent.is_mobile)
-    return strIsMobile
+
 
 # @app.route("/p/<string:slug>/")
 # def show_post(slug):
@@ -46,11 +40,8 @@ def func_user_agent():
 def show_tablas(num,start):
     cols=5
     form = TablasForm()
-    ua_string = request.user_agent.string
-    user_agent = parse(ua_string)
-    strIsMobile = "is mobile: " + str(user_agent.is_mobile)
-
     if form.validate_on_submit():
         num = form.number.data
        
+    #return render_template("show_tablas.html", num=num,cols=cols,start=start,form=form)
     return render_template("show_tablas_v1.html", num=num,cols=cols,start=start,form=form)
