@@ -50,7 +50,7 @@ def show_tablas(num,start):
     if form.validate_on_submit():
         num = form.number.data
         start = 1
-        cols = 1
+    cols = 1
 #    user_agent = parse(request.user_agent.string)
 #    if user_agent.is_mobile:
 #       cols = 1
