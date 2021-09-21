@@ -14,7 +14,7 @@ from forms import TablasForm
 from models import users, get_user, User
 
 # from flask_bootstrap import Bootstrap
-#from user_agents import parse
+from user_agents import parse
 from flask import request
 
 app = Flask(__name__)
@@ -49,12 +49,13 @@ def show_tablas(num,start):
     form = TablasForm()
     if form.validate_on_submit():
         num = form.number.data
-    #user_agent = parse(request.user_agent.string)
-    #if user_agent.is_mobile:
-    cols = 1
-    return render_template("mobile/show_tablas_v1.html", num=num,cols=cols,start=start,form=form)
-    #else:
-    #    return render_template("show_tablas_v1.html", num=num,cols=cols,start=start,form=form)
+        start = 1
+    user_agent = parse(request.user_agent.string)
+    if user_agent.is_mobile:
+       cols = 1
+       return render_template("mobile/show_tablas_v1.html", num=num,cols=cols,start=start,form=form)
+    else:
+       return render_template("show_tablas_v1.html", num=num,cols=cols,start=start,form=form)
 
 
        
