@@ -14,7 +14,7 @@ from forms import TablasForm
 from models import users, get_user, User
 
 # from flask_bootstrap import Bootstrap
-#from user_agents import parse
+from user_agents import parse
 from flask import request
 
 app = Flask(__name__)
