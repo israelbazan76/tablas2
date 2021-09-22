@@ -57,13 +57,12 @@ def show_tablas(num,start):
     if form.validate_on_submit():
         num = form.number.data
         start = 1
-    cols = 1
-#    user_agent = parse(request.user_agent.string)
-#    if user_agent.is_mobile:
-#       cols = 1
-    return render_template("mobile/show_tablas_v1.html", num=num,cols=cols,start=start,form=form)
-#    else:
-#       return render_template("show_tablas_v1.html", num=num,cols=cols,start=start,form=form)
+    user_agent = parse(request.user_agent.string)
+    if user_agent.is_mobile:
+       cols = 1
+       return render_template("mobile/show_tablas_v1.html", num=num,cols=cols,start=start,form=form)
+    else:
+       return render_template("show_tablas_v1.html", num=num,cols=cols,start=start,form=form)
 
 
        
