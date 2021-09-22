@@ -15,8 +15,7 @@ from models import users, get_user, User
 
 # from flask_bootstrap import Bootstrap
 
-# from user_agents import parse
-from flask import request
+from user_agents import parse
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '7110c8ae51a4b5af97be6534caef90e4bb9bdcb3380af008f90b23a5d1616bf319bc298105da20fe'
@@ -39,6 +38,13 @@ def func_user_agent():
     #strIsMobile = "is mobile: " + str(user_agent.is_mobile)
     #return strIsMobile
     return ua_string
+
+@app.route("/ismobile/")
+def func_is_mobile():
+    ua_string = request.user_agent.string
+    user_agent = parse(ua_string)
+    strIsMobile = "is mobile: " + str(user_agent.is_mobile)
+    return strIsMobile
 
 # @app.route("/p/<string:slug>/")
 # def show_post(slug):
