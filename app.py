@@ -14,13 +14,14 @@ from forms import TablasForm
 from models import users, get_user, User
 
 # from flask_bootstrap import Bootstrap
+from flask_wtf.csrf import CSRFProtect
 
 from user_agents import parse
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '7110c8ae51a4b5af97be6534caef90e4bb9bdcb3380af008f90b23a5d1616bf319bc298105da20fe'
 #Bootstrap(app)
-
+CSRFProtect(app)
 
 posts = []
 
