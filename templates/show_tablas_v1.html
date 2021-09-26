@@ -1,50 +1,59 @@
 {% extends "base_template_bootstrap.html" %}
 {% block head %}
-    {{ super() }}
-    <style type="text/css">
-        .centrados {
-            text-align: center;
-            align-self: center;
-            font-size: 1vw;
-        
-        }
+{{ super() }}
+<style type="text/css">
+    .centrados {
+        text-align: center;
+        align-self: center;
+        font-size: 1vw;
 
-        body {
-            margin: 0;
-            padding: 0;
-            /*display: grid;*/
-            place-content: center;
-            min-height: 100vh;
-        }
+    }
 
-        #parent {
-            display: table;
-            width: 100%;
-        }
+    body {
+        margin: 0;
+        padding: 0;
+        /*display: grid;*/
+        place-content: center;
+        min-height: 100vh;
+    }
 
-        #form_tabla {
-            display: table-cell;
-            text-align: center;
-            vertical-align: middle;
-        }
+    #parent {
+        display: table;
+        width: 100%;
+    }
 
-        .form-center {
-            display:flex;
-            justify-content: center;
-        }
-    </style>
+    #form_tabla {
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .form-center {
+        display: flex;
+        justify-content: center;
+    }
+</style>
 {% endblock %}
 
 {% block title %}Tablas de multiplicar{% endblock %}
 {% block content %}
 <div class="container-fluid" style="background-color:#bee5eb; width: 100%; height: auto; border-radius: 20px;">
     <div class="row">
-        <div class="col-lg-1 col-md-1 col-sm-1 col-xm-1"></div>
-        <div class="col-lg-10 col-md-10 col-sm-10 col-xm-10 form-center">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xm-1">
+            {% if form.errors %}
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                        aria-hidden="true">&times;</span> </button>
+                {% for field, errors in form.errors.items() %}
+                {{ ', '.join(errors) }}
+                {% endfor %}
+            </div>
+            {% endif %}
+
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xm-10 form-center">
             <!-- <h1>Tablas de multiplicar</h1> -->
-            {% for field, errors in form.errors.items() %}
-            {{ ', '.join(errors) }}
-            {% endfor %}
+
             <form class="form-inline" method="POST" action="" style="margin:auto;text-align: center;">
                 {{ form.csrf_token() }}
                 <div class="form-group">
@@ -56,24 +65,24 @@
                 </div>
             </form>
         </div>
-        <div class="col-lg-1 col-md-1 col-sm-1 col-xm-1"></div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xm-1"></div>
     </div>
     <div class="row">
 
         <div class="col-lg-1 col-md-1 col-sm-1 col-xm-1"></div>
         <div class="col-lg-10  col-md-10 col-sm-10 col-xm-10 centrados">
             {% if start > 10 %}
-            <a href="{{ url_for('show_tablas',num=num,start=start-10) }}"
-                class="fa fa-arrow-circle-up fa-2x" data-toggle="tooltip" data-placement="bottom" title="retroceder">
+            <a href="{{ url_for('show_tablas',num=num,start=start-10) }}" class="fa fa-arrow-circle-up fa-2x"
+                data-toggle="tooltip" data-placement="bottom" title="retroceder">
             </a>
             {% else %}
-            <a href="{{ url_for('show_tablas',num=num,start=1) }}"
-                class="fa fa-arrow-circle-up fa-2x"  data-toggle="tooltip" data-placement="bottom" title="retroceder">
+            <a href="{{ url_for('show_tablas',num=num,start=1) }}" class="fa fa-arrow-circle-up fa-2x"
+                data-toggle="tooltip" data-placement="bottom" title="retroceder">
             </a>
-            
+
             {% endif %}
-            
-            
+
+
         </div>
         <div class="col-lg-1 col-md-1 col-sm-1 col-xm-1"></div>
 
@@ -81,30 +90,29 @@
     <div class="row">
         <div class="col-lg-1 col-md-1 col-sm-1  col-xm-1 centrados">
             {% if num >= 1 %}
-                {% if num > cols %}
-                  <a href="{{ url_for('show_tablas',num=num - cols,start=start) }}"
-                    class="fa fa-arrow-circle-left fa-2x"data-toggle="tooltip" data-placement="right" title="anterior" >
-                  </a>
-                {% endif %}
-                {% if num <= cols %}
-                    <a href="{{ url_for('show_tablas',num= 1,start=start) }}"
-                    class="fa fa-arrow-circle-left fa-2x" data-toggle="tooltip" data-placement="right" title="anterior">
-                    </a>
-                {% endif %}
+            {% if num > cols %}
+            <a href="{{ url_for('show_tablas',num=num - cols,start=start) }}" class="fa fa-arrow-circle-left fa-2x"
+                data-toggle="tooltip" data-placement="right" title="anterior">
+            </a>
             {% endif %}
+            {% if num <= cols %} <a href="{{ url_for('show_tablas',num= 1,start=start) }}"
+                class="fa fa-arrow-circle-left fa-2x" data-toggle="tooltip" data-placement="right" title="anterior">
+                </a>
+                {% endif %}
+                {% endif %}
         </div>
         {% for n in range(0,cols) -%}
         <div class="col-lg-2 col-md-2 col-sm-2  col-xm-2 centrados tabla">
             <ul class="list-group">
-               {% for i in range(start,start + 10) -%}
+                {% for i in range(start,start + 10) -%}
                 <li class="list-group-item">{{num+n}} * {{i}} = {{(num+n)*i}}</li>
-               {% endfor -%}
+                {% endfor -%}
             </ul>
         </div>
         {% endfor -%}
         <div class="col-lg-1  col-md-1 col-sm-1 col-xm-1 centrados">
-            <a href="{{ url_for('show_tablas',num=num+cols,start=start) }}"
-            class="fa fa-arrow-circle-right fa-2x" data-toggle="tooltip" data-placement="left" title="siguiente">
+            <a href="{{ url_for('show_tablas',num=num+cols,start=start) }}" class="fa fa-arrow-circle-right fa-2x"
+                data-toggle="tooltip" data-placement="left" title="siguiente">
             </a>
         </div>
 
@@ -113,8 +121,8 @@
 
         <div class="col-lg-1 col-md-1 col-sm-1  col-xm-1"></div>
         <div class="col-lg-10 col-md-10  col-sm-10 col-xm-10 centrados">
-            <a href="{{ url_for('show_tablas',num=num,start=start+10) }}"
-            class="fa fa-arrow-circle-down fa-2x" data-toggle="tooltip" data-placement="top" title="avanzar">
+            <a href="{{ url_for('show_tablas',num=num,start=start+10) }}" class="fa fa-arrow-circle-down fa-2x"
+                data-toggle="tooltip" data-placement="top" title="avanzar">
             </a>
         </div>
         <div class="col-lg-1 col-md-1 col-sm-1 col-xm-1"></div>
